@@ -54,20 +54,8 @@ public class Controller : MonoBehaviour
         //TODO: Para cada posición, rellenar con 1's las casillas adyacentes (arriba, abajo, izquierda y derecha)
 
         //Matriz de adyacencia
-        int[,] matriz = new int[Constants.NumTiles, Constants.NumTiles];
+        //int[,] matriz = new int[Constants.NumTiles, Constants.NumTiles];
         int contador = 0;
-
-        /*void matrizCero()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    matriz[i, j] = 0;
-                }
-            }
-
-        }*/
         
         for (int x= 0; x < 8; x++)
         {
@@ -95,14 +83,6 @@ public class Controller : MonoBehaviour
                 contador++;
             }
         }
-        
-        tiles[63].adjacency.ForEach(x =>
-        {
-            Debug.Log(x);
-        });
-
-        
-
     }
 
     //Reseteamos cada casilla: color, padre, distancia y visitada
@@ -191,7 +171,17 @@ public class Controller : MonoBehaviour
         - Movemos al caco a esa casilla
         - Actualizamos la variable currentTile del caco a la nueva casilla
         */
-        robber.GetComponent<RobberMove>().MoveToTile(tiles[robber.GetComponent<RobberMove>().currentTile]);
+
+        System.Random random = new System.Random();
+        int randomNumber = random.Next(0, 64);
+
+        while(!tiles[randomNumber].selectable)
+        {
+            randomNumber = random.Next(0, 64);
+        }
+        robber.GetComponent<RobberMove>().MoveToTile(tiles[randomNumber]);
+
+        robber.GetComponent<RobberMove>().currentTile = randomNumber;
     }
 
     public void EndGame(bool end)
