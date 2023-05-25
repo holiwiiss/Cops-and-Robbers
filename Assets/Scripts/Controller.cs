@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,17 +46,62 @@ public class Controller : MonoBehaviour
         cops[1].GetComponent<CopMove>().currentTile=Constants.InitialCop1;
         robber.GetComponent<RobberMove>().currentTile=Constants.InitialRobber;           
     }
-
+    
     public void InitAdjacencyLists()
     {
-        //Matriz de adyacencia
-        int[,] matriu = new int[Constants.NumTiles, Constants.NumTiles];
-
         //TODO: Inicializar matriz a 0's
-
+        //TODO: Rellenar la lista "adjacency" de cada casilla con los índices de sus casillas adyacentes
         //TODO: Para cada posición, rellenar con 1's las casillas adyacentes (arriba, abajo, izquierda y derecha)
 
-        //TODO: Rellenar la lista "adjacency" de cada casilla con los índices de sus casillas adyacentes
+        //Matriz de adyacencia
+        int[,] matriz = new int[Constants.NumTiles, Constants.NumTiles];
+        int contador = 0;
+
+        /*void matrizCero()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    matriz[i, j] = 0;
+                }
+            }
+
+        }*/
+        
+        for (int x= 0; x < 8; x++)
+        {
+            for(int y = 0; y < 8; y++) {
+                if (x-1 >= 0)
+                {
+                    int valor = (x-1) * 8 + y;
+                    tiles[contador].adjacency.Add(valor);
+                }
+                if(x+1 < 8)
+                {
+                    int valor = (x + 1) * 8 + y;
+                    tiles[contador].adjacency.Add(valor);
+                }
+                if(y-1 >= 0)
+                {
+                    int valor = x  * 8 + (y-1);
+                    tiles[contador].adjacency.Add(valor);
+                }
+                if(y+1 < 8)
+                {
+                    int valor = x * 8 + (y + 1);
+                    tiles[contador].adjacency.Add(valor);
+                }
+                contador++;
+            }
+        }
+        
+        tiles[63].adjacency.ForEach(x =>
+        {
+            Debug.Log(x);
+        });
+
+        
 
     }
 

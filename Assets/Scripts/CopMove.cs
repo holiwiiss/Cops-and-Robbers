@@ -38,6 +38,4 @@ public class CopMove : Movement
             controller.GetComponent<Controller>().FinishTurn();
         }
     }
-
-    
 }
